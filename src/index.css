@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-neon-green: #00FF66;
+  --color-electric-blue: #00E5FF;
+  --color-acid-yellow: #DFFF00;
+  --color-digital-magenta: #FF007F;
+  --color-raw-red: #FF003C;
+  --color-dark-black: #050506;
+  --color-grafito: #16161C;
+  --color-grafito-light: #24242D;
+}
+
+/* Base style setups */
+body {
+  background-color: var(--color-dark-black);
+  color: #F3F4F6;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* CRT Scanline Filter */
+.crt-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-effect::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.45) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+  aspect-ratio: auto;
+  background-size: 100% 4px, 6px 100%;
+  z-index: 99;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.crt-effect::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.85) 120%);
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* Noise overlay */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.noise-overlay-active {
+  opacity: 0.28;
+}
+
+/* Animations & Glitches */
+@keyframes textGlitch {
+  0% {
+    text-shadow: 2px -1px 0 rgba(0, 229, 255, 0.5), -2px 1px 0 rgba(255, 0, 127, 0.5);
+  }
+  33% {
+    text-shadow: -1px 2px 0 rgba(0, 229, 255, 0.5), 2px -2px 0 rgba(255, 0, 127, 0.5);
+  }
+  66% {
+    text-shadow: 2px 1px 0 rgba(0, 229, 255, 0.4), -1px -2px 0 rgba(255, 0, 127, 0.4);
+  }
+  100% {
+    text-shadow: -2px -1px 0 rgba(0, 229, 255, 0.5), 1px 2px 0 rgba(255, 0, 127, 0.5);
+  }
+}
+
+.glitch-text {
+  animation: textGlitch 0.3s steps(2) infinite;
+}
+
+@keyframes scanline-roll {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.scanline-scanner {
+  animation: scanline-roll 6s linear infinite;
+}
+
+/* Custom Scrollbars to keep brutalist style */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-dark-black);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--color-dark-black);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-green);
+}
+
+/* Screen shake effect */
+@keyframes error-screen-shake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-1px, -1px) rotate(-0.5deg); }
+  20% { transform: translate(1px, 0px) rotate(0.5deg); }
+  30% { transform: translate(0px, 1px) rotate(0deg); }
+  40% { transform: translate(-1px, 1px) rotate(0.5deg); }
+  50% { transform: translate(1px, -1px) rotate(-0.5deg); }
+  60% { transform: translate(-1px, -1px) rotate(0deg); }
+  75% { transform: translate(1px, 1px) rotate(0.5deg); }
+}
+
+.shake-active {
+  animation: error-screen-shake 0.15s infinite;
+}
+
+/* Grid overlay background */
+.brutalist-grid {
+  background-size: 30px 30px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}

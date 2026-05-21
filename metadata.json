@@ -1,0 +1,8 @@
+{
+  "name": "ERROR",
+  "description": "An innovative mobile and web experimental lab that turns glitches, limitations, and aesthetic chaos into active creative tools to break creative blocks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
